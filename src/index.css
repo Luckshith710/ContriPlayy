@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+      background-color: #09090b;
+      color: #dde4dd;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .glass-card {
+      background: rgba(12, 12, 14, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid #27272a;
+  }
+  .emerald-glow {
+      box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.15);
+  }
+  .bloom-effect {
+      position: relative;
+  }
+  .bloom-effect::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #10b981;
+      filter: blur(12px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+  }
+  .bloom-effect:hover::after {
+      opacity: 0.15;
+  }
+  .mask-grid {
+      mask-image: linear-gradient(to bottom, black, transparent);
+  }
+  .nav-active {
+      color: #10b981;
+      font-weight: 700;
+      border-bottom: 2px solid #10b981;
+      padding-bottom: 4px;
+  }
+}

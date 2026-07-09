@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Match | ContriPlayy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(12, 12, 14, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #27272a;
+        }
+        .emerald-bloom {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        body {
+            background-color: #09090b;
+            color: #dde4dd;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ffdad7",
+                      "on-primary-fixed": "#002113",
+                      "inverse-surface": "#dde4dd",
+                      "on-secondary-container": "#bcbbc3",
+                      "surface-variant": "#2f3632",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "on-primary-container": "#00422b",
+                      "surface-container-highest": "#2f3632",
+                      "on-background": "#dde4dd",
+                      "on-surface-variant": "#bbcabf",
+                      "on-tertiary": "#650911",
+                      "secondary-fixed-dim": "#c7c5ce",
+                      "background": "#0e1511",
+                      "on-tertiary-container": "#711419",
+                      "surface-container-lowest": "#09100c",
+                      "tertiary-container": "#fc7c78",
+                      "surface-container-high": "#242c27",
+                      "outline-variant": "#3c4a42",
+                      "secondary-fixed": "#e3e1ea",
+                      "on-tertiary-fixed": "#410005",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-secondary": "#303037",
+                      "outline": "#86948a",
+                      "surface-dim": "#0e1511",
+                      "surface-tint": "#4edea3",
+                      "on-secondary-fixed-variant": "#46464d",
+                      "on-primary": "#003824",
+                      "on-secondary-fixed": "#1b1b21",
+                      "secondary": "#c7c5ce",
+                      "surface-container": "#1a211d",
+                      "tertiary": "#ffb3af",
+                      "inverse-primary": "#006c49",
+                      "primary-fixed-dim": "#4edea3",
+                      "secondary-container": "#4b4b52",
+                      "error-container": "#93000a",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#2b322d",
+                      "primary-fixed": "#6ffbbe",
+                      "primary": "#10b981", /* Overriding for specific emerald branding */
+                      "on-primary-container": "#00422b",
+                      "error": "#ffb4ab",
+                      "on-surface": "#dde4dd",
+                      "primary-container": "#10b981",
+                      "surface-bright": "#343b36",
+                      "surface-container-low": "#161d19",
+                      "surface": "#0e1511"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "base": "4px",
+                      "md": "16px",
+                      "xl": "40px",
+                      "gutter": "24px",
+                      "sm": "8px",
+                      "container-max": "1200px",
+                      "lg": "24px"
+              },
+              "fontFamily": {
+                      "display-lg": ["Geist"],
+                      "body-lg": ["Inter"],
+                      "label-uppercase": ["Geist"],
+                      "code": ["Geist"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Geist"],
+                      "display-lg-mobile": ["Geist"]
+              },
+              "fontSize": {
+                      "display-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "label-uppercase": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="font-body-lg text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center h-16 px-gutter backdrop-blur-xl border-b border-outline-variant bg-background/80">
+<div class="flex items-center gap-md">
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary">ContriPlayy</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-sm px-sm py-xs bg-surface-container rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48 text-on-surface" placeholder="Search matches..." type="text"/>
+</div>
+<button class="p-sm rounded-lg hover:bg-surface-variant/50 transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm rounded-lg hover:bg-surface-variant/50 transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young entrepreneur in a dark, tech-oriented studio setting. The lighting is dramatic, with emerald green highlights accentuating their profile. The background is a clean, dark charcoal grey, consistent with a high-end SaaS dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPLhr_v7I7b4Q7vuyeGPMOdgzOL3Dzk65q3plhc2BDPrR4bbB6BqgDOqgl2aErxU-VrxVB5izzStLdJny7CEuQTOXQF1euGJrRQ7UtzR7banUZpcjKGQnPRGS1bROhfFN_jT-GZ-DyxdlHWbFSzmERXPMFz-GVDqC7qrpc6B_1kKlIYabbvuW0mXxKuUvJIYCFCCZksbHe4zO_sO9vUHR5b1KVqSfAcU4O8rN1meFnsckonk3K_B7IVA-4D6FJi4eI0PmzBTp8x2k"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col py-md px-sm gap-sm bg-surface-container-low border-r border-outline-variant z-40 pt-20">
+<div class="px-md mb-md">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">sports_score</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-uppercase text-label-uppercase text-primary">Premium Sports</span>
+<span class="text-[10px] text-on-surface-variant">Active Subscription</span>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-uppercase text-label-uppercase">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-uppercase text-label-uppercase">Groups</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-label-uppercase text-label-uppercase">Bookings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg group" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-uppercase text-label-uppercase">Settlements</span>
+</a>
+</nav>
+<div class="px-md py-md border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-uppercase text-label-uppercase">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-uppercase text-label-uppercase">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-0 md:ml-64 pt-24 pb-xl px-gutter min-h-screen relative overflow-hidden">
+<!-- Background Atmospheric Glow -->
+<div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-primary/3 blur-[100px] rounded-full pointer-events-none"></div>
+<div class="max-w-3xl mx-auto relative z-10">
+<!-- Header Section -->
+<div class="mb-xl text-center md:text-left">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xs">Create New Match</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Fill in the details to start splitting costs with your squad.</p>
+</div>
+<!-- Form Card -->
+<div class="glass-panel p-lg md:p-xl rounded-xl emerald-bloom">
+<form class="space-y-lg">
+<!-- Sport Type & Venue -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Sport Type</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">sports_soccer</span>
+<select class="w-full bg-background border border-outline-variant rounded-lg py-md pl-12 pr-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer">
+<option>Football</option>
+<option>Cricket</option>
+<option>Badminton</option>
+<option>Basketball</option>
+<option>Tennis</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Venue Name</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">location_on</span>
+<input class="w-full bg-background border border-outline-variant rounded-lg py-md pl-12 pr-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="e.g., Urban Sports Arena" type="text"/>
+</div>
+</div>
+</div>
+<!-- Date & Time -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Match Date</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">calendar_today</span>
+<input class="w-full bg-background border border-outline-variant rounded-lg py-md pl-12 pr-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all [color-scheme:dark]" type="date"/>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Start Time</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">schedule</span>
+<input class="w-full bg-background border border-outline-variant rounded-lg py-md pl-12 pr-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all [color-scheme:dark]" type="time"/>
+</div>
+</div>
+</div>
+<!-- Booking Cost -->
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Initial Booking Cost</label>
+<div class="relative group">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-primary font-bold text-lg">₹</span>
+<input class="w-full bg-background border border-outline-variant rounded-lg py-md pl-12 pr-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="0.00" type="number"/>
+<span class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant text-body-sm">INR</span>
+</div>
+</div>
+<!-- Notes -->
+<div class="space-y-sm">
+<label class="font-label-uppercase text-label-uppercase text-on-surface-variant">Notes & Requirements</label>
+<textarea class="w-full bg-background border border-outline-variant rounded-lg py-md px-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none" placeholder="Mention rules, split logic, or equipment needs..." rows="4"></textarea>
+</div>
+<!-- Actions -->
+<div class="pt-md flex flex-col md:flex-row gap-md">
+<button class="flex-1 bg-primary text-black font-display-lg text-body-lg py-md rounded-lg hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)]" type="submit">
+                            Create Match
+                        </button>
+<button class="flex-1 border border-outline-variant text-on-surface font-display-lg text-body-lg py-md rounded-lg hover:bg-surface-variant/50 active:scale-[0.98] transition-all" type="button">
+                            Cancel
+                        </button>
+</div>
+</form>
+</div>
+<!-- Contextual Card: Recent Venues -->
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-panel p-md rounded-lg border border-outline-variant flex items-center gap-md hover:border-primary/50 cursor-pointer transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A high-definition photograph of a premium indoor football turf at night, featuring bright floodlights and vibrant green artificial grass. The architecture is modern, with industrial steel beams and dark mesh netting. Cinematic lighting with deep shadows, reflecting a professional sports facility vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_p-jAUHg-AFdGllb6puXW1ojOA5HGWtolmH6rjLtl49mIoGbz-7nGJGOTB0B7qCZv4uBgzV8MmuAlEI3LY7C_p1cymmyT8KlKI88bfvSaSI46Zsq4MiAXCkLZf_2q4iQvxyoxh72iecV5yZqBG48jneqE-W2Lv0r3MHi2lt5r2mHOLTvN2i4NLnLw9jZKx9k5TJVmdpGPqKis7rS4PhwUkfYkG-WiF3JQNKWR4qt2EEo5pvG2uWsWYjkLdCJqV5e8FSwdW3ZdiZo"/>
+</div>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-primary">Last Venue</p>
+<p class="text-body-sm font-semibold">Urban Arena</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-lg border border-outline-variant flex items-center gap-md hover:border-primary/50 cursor-pointer transition-colors group">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="A macro shot of a shiny red cricket ball resting on a well-maintained pitch under bright afternoon sun. The background shows blurred stadium seats in dark green. The image has a crisp, professional sports broadcast quality with a focus on texture and high-performance atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzSkV8YAZcHMmbQ2duGeA4hYL3B10OGPiVvenyXR4dHxMmEhRBMUmqGbx3BC0TTxj7mBCtnFQA1UbUNXfgArjwyRBKhooocVml2Ck7DIjz6ISehVd5I4hGD-1rOo02gasI4s9Ts_gyOv7iOhtUL6JT-zp2A1AEUSx74DxkSY8Ejj4nSnjdQl5nuw4AoAFRC_SD3Tj--8dUt23brwLh5OMJUzcrWLpRFCG7CMClRTURHET68G6I8e8FlTUPpXgyv5r7H_N19BLp-Ow"/>
+</div>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-on-surface-variant">Drafts</p>
+<p class="text-body-sm font-semibold">Friday Smash</p>
+</div>
+</div>
+<div class="glass-panel p-md rounded-lg border border-outline-variant flex items-center gap-md bg-primary-container/10 border-primary/30">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-black">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<div>
+<p class="font-label-uppercase text-label-uppercase text-primary">Pro Tip</p>
+<p class="text-[11px] text-on-surface-variant">Matches with notes fill 40% faster.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed as per rules for focused task pages, but adding a micro-interaction trigger for mobile navigation if needed) -->
+<script>
+        // Form Interaction
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Creating...';
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Match Created!';
+                btn.classList.replace('bg-primary', 'bg-tertiary-container');
+                btn.classList.replace('text-black', 'text-on-tertiary-container');
+            }, 1500);
+        });
+
+        // Focus transitions
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.closest('.glass-panel').style.boxShadow = "0 0 30px rgba(16, 185, 129, 0.25)";
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.closest('.glass-panel').style.boxShadow = "0 0 20px rgba(16, 185, 129, 0.15)";
+            });
+        });
+    </script>
+</body></html>
