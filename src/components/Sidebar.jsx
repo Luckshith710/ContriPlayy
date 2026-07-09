@@ -9,50 +9,40 @@ const sidebarStyles = `
   .logout-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: #f87171; font-size: 14px; font-weight: 500; transition: all 0.2s; background: none; border: none; width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; }
   .logout-btn:hover { background: rgba(248,113,113,0.08); }
 
-  /* Mobile Bottom Nav */
-  .mobile-bottom-nav { display: none; }
+  /* Mobile Header & Drawer */
+  .mobile-header { display: none; }
   .mobile-drawer-overlay { display: none; }
 
   @media (max-width: 768px) {
     .desktop-sidebar { display: none !important; }
 
-    .mobile-bottom-nav {
+    .mobile-header {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: fixed;
-      bottom: 0;
+      top: 0;
       left: 0;
       right: 0;
-      z-index: 200;
-      background: rgba(12,12,14,0.98);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 0;
       height: 60px;
-      align-items: stretch;
+      background: rgba(12,12,14,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 200;
+      padding: 0 16px;
       backdrop-filter: blur(20px);
     }
-
-    .mob-nav-item {
-      flex: 1;
+    
+    .hamburger-btn {
+      background: transparent;
+      border: none;
+      color: #e4e4e7;
+      font-size: 24px;
+      cursor: pointer;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      text-decoration: none;
-      color: #52525b;
-      font-size: 9px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      padding: 6px 2px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      transition: color 0.2s;
-      letter-spacing: 0.02em;
+      padding: 4px;
     }
-    .mob-nav-item.active { color: #10b981; }
-    .mob-nav-item:not(.active):hover { color: #a1a1aa; }
-    .mob-nav-icon { font-size: 18px; line-height: 1; }
 
     .mobile-drawer-overlay {
       display: block;
@@ -71,38 +61,26 @@ const sidebarStyles = `
 
     .mobile-drawer {
       position: fixed;
-      bottom: 60px;
+      top: 0;
       left: 0;
-      right: 0;
-      background: rgba(12,12,14,0.99);
-      border-top: 1px solid rgba(255,255,255,0.08);
+      bottom: 0;
+      width: 280px;
+      max-width: 85vw;
+      background: rgba(12,12,14,0.98);
+      border-right: 1px solid rgba(255,255,255,0.06);
       z-index: 350;
-      padding: 16px;
-      transform: translateY(100%);
+      padding: 24px 16px;
+      transform: translateX(-100%);
       transition: transform 0.3s ease;
-      border-radius: 16px 16px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       backdrop-filter: blur(20px);
+      overflow-y: auto;
     }
     .mobile-drawer.open {
-      transform: translateY(0);
+      transform: translateX(0);
     }
-
-    .mob-drawer-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: #a1a1aa;
-      font-size: 15px;
-      font-weight: 500;
-      transition: all 0.2s;
-      margin-bottom: 4px;
-    }
-    .mob-drawer-link:hover { background: rgba(255,255,255,0.05); color: #e4e4e7; }
-    .mob-drawer-link.active { background: rgba(16,185,129,0.1); color: #10b981; }
-    .mob-drawer-link-icon { font-size: 20px; width: 28px; text-align: center; }
   }
 `;
 
@@ -169,27 +147,15 @@ export default function Sidebar({ active }) {
         </button>
       </div>
 
-      {/* ── MOBILE BOTTOM NAV ── */}
-      <nav className="mobile-bottom-nav">
-        {primaryLinks.map(link => (
-          <Link
-            key={link.label}
-            to={link.to}
-            className={`mob-nav-item ${active === link.label ? 'active' : ''}`}
-            onClick={() => setDrawerOpen(false)}
-          >
-            <span className="mob-nav-icon">{link.icon}</span>
-            <span>{link.label.split(' ')[0]}</span>
-          </Link>
-        ))}
-        <button
-          className={`mob-nav-item ${drawerOpen ? 'active' : ''}`}
-          onClick={() => setDrawerOpen(v => !v)}
-        >
-          <span className="mob-nav-icon">{drawerOpen ? '✕' : '☰'}</span>
-          <span>More</span>
+      {/* ── MOBILE HEADER ── */}
+      <div className="mobile-header">
+        <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          ⚽ ContriPlayy
+        </Link>
+        <button className="hamburger-btn" onClick={() => setDrawerOpen(true)}>
+          ☰
         </button>
-      </nav>
+      </div>
 
       {/* ── MOBILE DRAWER OVERLAY ── */}
       <div
@@ -199,37 +165,45 @@ export default function Sidebar({ active }) {
 
       {/* ── MOBILE DRAWER ── */}
       <div className={`mobile-drawer ${drawerOpen ? 'open' : ''}`}>
-        {/* User info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', marginBottom: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px' }}>
-          {user?.photoURL
-            ? <img src={user.photoURL} alt={displayName} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid rgba(16,185,129,0.4)', flexShrink: 0 }} />
-            : <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, #10b981, #34d399)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#022c22', fontSize: '16px', flexShrink: 0 }}>{initial}</div>
-          }
-          <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: '14px', fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#f4f4f5' }}>{displayName}</div>
-            <div style={{ fontSize: '12px', color: '#71717a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email || ''}</div>
-          </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', padding: '0 4px' }}>
+          <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            ⚽ ContriPlayy
+          </Link>
+          <button className="hamburger-btn" onClick={() => setDrawerOpen(false)}>
+            ✕
+          </button>
         </div>
 
-        {/* All links */}
-        {links.slice(4).map(link => (
+        {links.map(link => (
           <Link
             key={link.label}
             to={link.to}
-            className={`mob-drawer-link ${active === link.label ? 'active' : ''}`}
+            className={`sidebar-link ${active === link.label ? 'active' : ''}`}
             onClick={() => setDrawerOpen(false)}
           >
-            <span className="mob-drawer-link-icon">{link.icon}</span>
-            {link.label}
+            <span>{link.icon}</span> {link.label}
           </Link>
         ))}
 
+        <div style={{ flex: 1 }} />
+
+        {/* User info */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px', marginBottom: '8px' }}>
+          {user?.photoURL
+            ? <img src={user.photoURL} alt={displayName} style={{ width: '34px', height: '34px', borderRadius: '50%', objectFit: 'cover', border: '1px solid rgba(16,185,129,0.3)', flexShrink: 0 }} />
+            : <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(135deg, #10b981, #34d399)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#022c22', fontSize: '14px', flexShrink: 0 }}>{initial}</div>
+          }
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontSize: '13px', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
+            <div style={{ fontSize: '11px', color: '#71717a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email || ''}</div>
+          </div>
+        </div>
+
         <button
           onClick={() => { setDrawerOpen(false); handleLogout(); }}
-          style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '10px', color: '#f87171', width: '100%', background: 'rgba(248,113,113,0.05)', border: '1px solid rgba(248,113,113,0.1)', cursor: 'pointer', fontSize: '15px', fontWeight: 500, fontFamily: 'Inter, sans-serif', marginTop: '8px' }}
+          className="logout-btn"
         >
-          <span style={{ fontSize: '20px', width: '28px', textAlign: 'center' }}>🚪</span>
-          Logout
+          <span>🚪</span> Logout
         </button>
       </div>
     </>

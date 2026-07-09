@@ -230,6 +230,7 @@ const styles = `
           .hero-cta-row .btn-primary, .hero-cta-row .btn-secondary { width: 100%; max-width: 320px; box-sizing: border-box; }
           .cta-btn-row { flex-direction: column; align-items: center; }
           .cta-btn-row .btn-primary, .cta-btn-row .btn-secondary { width: 100%; max-width: 300px; font-size: 15px !important; padding: 14px 24px !important; }
+          img { max-width: 100%; height: auto; }
         }
         @media (max-width: 480px) {
           .hero-title { font-size: clamp(28px, 8vw, 38px) !important; }
@@ -244,7 +245,7 @@ const styles = `
   const navItems = ['Features', 'How It Works', 'Pricing', 'FAQ'];
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
       <style>{styles}</style>
 
       {/* NAV */}

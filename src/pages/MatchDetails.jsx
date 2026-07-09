@@ -50,16 +50,16 @@ const styles = `
   @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 768px) {
-    .md-nav { padding: 14px 16px !important; }
+    .md-nav { padding: 14px 16px !important; width: 100% !important; box-sizing: border-box; }
     .md-nav-links { gap: 12px !important; }
-    .md-page { padding: 16px !important; padding-bottom: 80px !important; }
+    .md-page { padding: 16px !important; padding-bottom: 24px !important; width: 100% !important; box-sizing: border-box; }
     .md-header { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; margin-bottom: 24px !important; }
     .md-header h1 { font-size: 24px !important; }
     .md-header-actions { justify-content: stretch; width: 100%; }
     .md-header-actions .outline-btn, .md-header-actions .action-btn { flex: 1; justify-content: center; text-align: center; }
     .md-main-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
     .md-summary-cards { grid-template-columns: 1fr 1fr !important; }
-    .md-card { padding: 16px !important; }
+    .md-card { padding: 16px !important; width: 100% !important; box-sizing: border-box; }
     
     .player-row { flex-direction: column; align-items: flex-start; gap: 12px; }
     .pr-left { width: 100%; }
@@ -68,7 +68,7 @@ const styles = `
     .md-player-tabs { overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
     .md-player-tabs button { flex-shrink: 0; }
     
-    .modal-content { max-width: 90vw !important; margin: 16px; padding: 20px !important; }
+    .modal-content { width: 92% !important; max-width: none !important; margin: 0 auto; padding: 20px !important; box-sizing: border-box; }
   }
 `;
 

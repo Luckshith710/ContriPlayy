@@ -33,14 +33,15 @@ const styles = `
   .spinner { width: 18px; height: 18px; border: 2px solid rgba(2,44,34,0.4); border-top: 2px solid #022c22; border-radius: 50%; animation: spin 0.6s linear infinite; }
 
   @media (max-width: 768px) {
-    .cm-nav { padding: 14px 16px !important; }
-    .cm-page { padding: 24px 14px !important; }
+    .cm-nav { padding: 14px 16px !important; width: 100% !important; box-sizing: border-box; }
+    .cm-page { padding: 24px 16px !important; width: 100% !important; box-sizing: border-box; }
     .cm-page h1 { font-size: 24px !important; }
-    .section-card { padding: 20px 16px !important; border-radius: 12px; }
+    .section-card { padding: 20px 16px !important; border-radius: 12px; width: 100% !important; margin: 0 auto 16px !important; box-sizing: border-box; }
     .sport-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
+    .sport-btn { font-size: 11px !important; padding: 8px !important; }
     .venue-time-grid { grid-template-columns: 1fr !important; }
     .cm-input, .cm-select { font-size: 16px !important; padding: 12px 14px !important; }
-    .submit-btn { padding: 14px; font-size: 15px; }
+    .submit-btn { padding: 14px; font-size: 15px; width: 100% !important; }
     .player-chip { flex-wrap: wrap; gap: 8px; }
     .add-player-row { flex-direction: column !important; }
     .add-player-row input { width: 100% !important; }

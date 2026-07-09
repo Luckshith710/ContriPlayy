@@ -28,7 +28,7 @@ const styles = `
 
   @media (max-width: 768px) {
     .si-layout { padding: 20px !important; }
-    .si-card { padding: 32px 24px !important; }
+    .si-card { padding: 32px 24px !important; width: 92% !important; max-width: none !important; margin: 0 auto; }
   }
   .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
@@ -141,7 +141,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="si-layout" style={{ background: '#09090b', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Inter', sans-serif", position: 'relative', overflow: 'hidden' }}>
+    <div className="si-layout" style={{ background: '#09090b', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: "'Inter', sans-serif", position: 'relative', overflow: 'hidden' }}>
       <style>{styles}</style>
 
       {/* BG effects */}

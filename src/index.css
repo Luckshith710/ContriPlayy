@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
       background-color: #09090b;
       color: #dde4dd;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0;
   }
 }
 

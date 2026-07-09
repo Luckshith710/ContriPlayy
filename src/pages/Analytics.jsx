@@ -23,13 +23,13 @@ const styles = `
 
   @media (max-width: 768px) {
     .an-layout { flex-direction: column !important; }
-    .an-main { padding: 16px !important; padding-bottom: 80px !important; }
-    .an-kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    .an-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
+    .an-kpi-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
     .an-charts-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
-    .an-card { padding: 18px; }
-    .stat-chip { padding: 14px; }
+    .an-card { padding: 18px; width: 100% !important; box-sizing: border-box; }
+    .stat-chip { padding: 14px; width: 100% !important; box-sizing: border-box; }
     .stat-chip-value { font-size: 20px !important; }
-    .an-loading-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .an-loading-grid { grid-template-columns: 1fr !important; }
   }
 `;
 

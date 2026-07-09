@@ -21,15 +21,13 @@ const styles = `
 
   @media (max-width: 768px) {
     .ms-layout { flex-direction: column !important; }
-    .ms-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .ms-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .ms-stats { grid-template-columns: 1fr !important; gap: 8px !important; }
     .ms-sort-row { flex-wrap: wrap; gap: 6px; }
     .sort-btn { padding: 6px 12px; font-size: 12px; }
     .ms-grid { grid-template-columns: 1fr !important; }
+    .player-card { width: 100% !important; box-sizing: border-box; }
     .player-card:hover { transform: none; }
-  }
-  @media (max-width: 480px) {
-    .ms-stats { grid-template-columns: 1fr 1fr !important; }
   }
 `;
 

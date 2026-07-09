@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { collection, query, where, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
+import Sidebar from '../components/Sidebar';
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
@@ -37,11 +38,11 @@ const styles = `
 
   @media (max-width: 768px) {
     .dash-layout { flex-direction: column !important; }
-    .dash-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .dash-main { padding: 76px 16px 24px !important; }
     .dash-header { flex-direction: column !important; gap: 12px !important; margin-bottom: 20px !important; }
     .dash-header h1 { font-size: 22px !important; }
     .dash-header .action-btn { width: 100%; justify-content: center; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; margin-bottom: 20px !important; }
+    .stats-grid { grid-template-columns: 1fr !important; gap: 10px !important; margin-bottom: 20px !important; }
     .stat-card { padding: 14px !important; }
     .stat-card-value { font-size: 18px !important; }
     .match-table { border-radius: 12px; }
@@ -60,7 +61,6 @@ const styles = `
     .tabs-bar { padding: 12px 12px 0 !important; overflow-x: auto; white-space: nowrap; }
   }
   @media (max-width: 480px) {
-    .stats-grid { grid-template-columns: 1fr 1fr !important; }
     .stat-card-value { font-size: 16px !important; }
   }
 `;
@@ -129,44 +129,7 @@ export default function Dashboard() {
       <style>{styles}</style>
 
       {/* Sidebar */}
-      <div style={{ width: '240px', background: 'rgba(12,12,14,0.95)', borderRight: '1px solid rgba(255,255,255,0.06)', padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '4px', position: 'sticky', top: 0, height: '100vh', flexShrink: 0 }}>
-        <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', marginBottom: '24px' }}>
-          ⚽ ContriPlayy
-        </Link>
-
-        {[
-          { icon: '⊞', label: 'Dashboard', active: true, to: '/dashboard' },
-          { icon: '⚡', label: 'New Match', active: false, to: '/create-match' },
-          { icon: '📋', label: 'Match History', active: false, to: '/match-history' },
-          { icon: '👥', label: 'My Squads', active: false, to: '/my-squads' },
-          { icon: '📊', label: 'Analytics', active: false, to: '/analytics' },
-          { icon: '💳', label: 'My Expenses', active: false, to: '/expenses' },
-        ].map(link => (
-          <Link key={link.label} to={link.to} className={`sidebar-link ${link.active ? 'active' : ''}`}>
-            <span>{link.icon}</span> {link.label}
-          </Link>
-        ))}
-
-        <div style={{ flex: 1 }} />
-
-        {/* User info */}
-        <div style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px', marginBottom: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {user?.photoURL
-              ? <img src={user.photoURL} alt={displayName} style={{ width: '34px', height: '34px', borderRadius: '50%', objectFit: 'cover', border: '1px solid rgba(16,185,129,0.3)' }} />
-              : <div style={{ width: '34px', height: '34px', borderRadius: '50%', background: 'linear-gradient(135deg, #10b981, #34d399)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#022c22', fontSize: '14px', flexShrink: 0 }}>{initial}</div>
-            }
-            <div style={{ minWidth: 0 }}>
-              <div style={{ fontSize: '13px', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{displayName}</div>
-              <div style={{ fontSize: '11px', color: '#71717a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email || ''}</div>
-            </div>
-          </div>
-        </div>
-
-        <button className="logout-btn" onClick={handleLogout}>
-          <span>🚪</span> Logout
-        </button>
-      </div>
+      <Sidebar active="Dashboard" />
 
       {/* Main */}
       <div className="dash-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>

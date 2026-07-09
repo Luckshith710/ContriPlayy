@@ -24,7 +24,7 @@ const styles = `
 
   @media (max-width: 768px) {
     .ex-layout { flex-direction: column !important; }
-    .ex-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .ex-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .ex-page-header { flex-direction: column !important; gap: 14px !important; align-items: stretch !important; }
     .ex-name-bar { flex-direction: column !important; gap: 8px !important; width: 100% !important; padding: 12px !important; }
     .ex-input { width: 100% !important; font-size: 16px; box-sizing: border-box; }
@@ -42,9 +42,7 @@ const styles = `
     .match-row-venue { font-weight: 600; font-size: 14px; color: #e4e4e7; }
     .match-row-meta { font-size: 12px; color: #71717a; }
     .match-row-amounts { display: flex; gap: 16px; margin-top: 4px; }
-  }
-  @media (max-width: 480px) {
-    .ex-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+    .ex-card { width: 100% !important; box-sizing: border-box; }
   }
 `;
 

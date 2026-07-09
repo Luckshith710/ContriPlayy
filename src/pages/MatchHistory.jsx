@@ -31,12 +31,12 @@ const styles = `
 
   @media (max-width: 768px) {
     .mh-layout { flex-direction: column !important; }
-    .mh-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .mh-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .mh-summary-strip { grid-template-columns: 1fr !important; gap: 10px !important; }
     .mh-filters { flex-direction: column !important; gap: 8px !important; align-items: stretch !important; }
     .search-input { width: 100% !important; font-size: 16px !important; box-sizing: border-box; }
     .filter-groups { display: flex; flex-wrap: wrap; gap: 6px; }
-    .mh-card { flex-wrap: wrap; padding: 14px 16px; gap: 10px; }
+    .mh-card { flex-wrap: wrap; padding: 14px 16px; gap: 10px; width: 100% !important; box-sizing: border-box; }
     .mh-card-left { min-width: 0; flex: 1; }
     .mh-card-middle { width: 100%; }
     .mh-card-middle .progress-bar { width: 100% !important; }
