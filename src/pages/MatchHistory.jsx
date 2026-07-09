@@ -29,7 +29,7 @@ const styles = `
   .search-input::placeholder { color: #52525b; }
   .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .mh-layout { flex-direction: column !important; }
     .mh-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .mh-summary-strip { grid-template-columns: 1fr !important; gap: 10px !important; }

@@ -32,7 +32,7 @@ const styles = `
   .error-banner { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #f87171; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .spinner { width: 18px; height: 18px; border: 2px solid rgba(2,44,34,0.4); border-top: 2px solid #022c22; border-radius: 50%; animation: spin 0.6s linear infinite; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .cm-nav { padding: 14px 16px !important; width: 100% !important; box-sizing: border-box; }
     .cm-page { padding: 24px 16px !important; width: 100% !important; box-sizing: border-box; }
     .cm-page h1 { font-size: 24px !important; }

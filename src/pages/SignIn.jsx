@@ -26,7 +26,7 @@ const styles = `
   .shape-1 { position: absolute; top: 15%; left: 15%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0) 70%); border-radius: 50%; filter: blur(40px); animation: float 8s ease-in-out infinite; z-index: 1; }
   .shape-2 { position: absolute; bottom: 15%; right: 15%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(96,165,250,0.1) 0%, rgba(96,165,250,0) 70%); border-radius: 50%; filter: blur(50px); animation: float-delayed 10s ease-in-out infinite; z-index: 1; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .si-layout { padding: 20px !important; }
     .si-card { padding: 32px 24px !important; width: 92% !important; max-width: none !important; margin: 0 auto; }
   }

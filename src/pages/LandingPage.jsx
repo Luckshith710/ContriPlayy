@@ -195,7 +195,7 @@ const styles = `
           .stats-bar { gap: 20px; }
           .pricing-grid { grid-template-columns: 1fr; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
           .desktop-nav { display: none; }
           .mobile-nav-btn { display: block; z-index: 101; }
           .hero-section-grid { grid-template-columns: 1fr !important; gap: 32px !important; }

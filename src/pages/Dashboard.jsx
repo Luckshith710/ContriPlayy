@@ -36,7 +36,7 @@ const styles = `
   .logout-btn:hover { background: rgba(248,113,113,0.08); }
   .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .dash-layout { flex-direction: column !important; }
     .dash-main { padding: 76px 16px 24px !important; }
     .dash-header { flex-direction: column !important; gap: 12px !important; margin-bottom: 20px !important; }

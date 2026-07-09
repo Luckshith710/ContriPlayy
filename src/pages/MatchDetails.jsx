@@ -49,7 +49,7 @@ const styles = `
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .md-nav { padding: 14px 16px !important; width: 100% !important; box-sizing: border-box; }
     .md-nav-links { gap: 12px !important; }
     .md-page { padding: 16px !important; padding-bottom: 24px !important; width: 100% !important; box-sizing: border-box; }

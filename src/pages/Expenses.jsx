@@ -22,7 +22,7 @@ const styles = `
   .match-row:hover { background: rgba(16,185,129,0.04); }
   .match-row:last-child { border-bottom: none; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .ex-layout { flex-direction: column !important; }
     .ex-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .ex-page-header { flex-direction: column !important; gap: 14px !important; align-items: stretch !important; }

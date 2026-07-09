@@ -19,7 +19,7 @@ const styles = `
   .sort-btn { padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: #71717a; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .sort-btn.active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #10b981; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .ms-layout { flex-direction: column !important; }
     .ms-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .ms-stats { grid-template-columns: 1fr !important; gap: 8px !important; }

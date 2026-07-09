@@ -21,7 +21,7 @@ const styles = `
   .bar-chart-bar:hover { opacity: 0.85; }
   .donut-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .an-layout { flex-direction: column !important; }
     .an-main { padding: 76px 16px 24px !important; width: 100% !important; box-sizing: border-box; }
     .an-kpi-grid { grid-template-columns: 1fr !important; gap: 10px !important; }

@@ -12,8 +12,9 @@ const sidebarStyles = `
   /* Mobile Header & Drawer */
   .mobile-header { display: none; }
   .mobile-drawer-overlay { display: none; }
+  .mobile-drawer { display: none; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .desktop-sidebar { display: none !important; }
 
     .mobile-header {
