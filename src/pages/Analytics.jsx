@@ -20,6 +20,17 @@ const styles = `
   .bar-chart-bar { border-radius: 6px 6px 0 0; transition: opacity 0.2s; cursor: default; position: relative; }
   .bar-chart-bar:hover { opacity: 0.85; }
   .donut-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800; }
+
+  @media (max-width: 768px) {
+    .an-layout { flex-direction: column !important; }
+    .an-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .an-kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    .an-charts-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+    .an-card { padding: 18px; }
+    .stat-chip { padding: 14px; }
+    .stat-chip-value { font-size: 20px !important; }
+    .an-loading-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
 `;
 
 const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -113,11 +124,11 @@ export default function Analytics() {
   const venueData = Object.values(venueMap).sort((a, b) => b.count - a.count).slice(0, 5);
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
+    <div className="an-layout" style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
       <style>{styles}</style>
       <Sidebar active="Analytics" />
 
-      <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+      <div className="an-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
         {/* Header */}
         <div style={{ marginBottom: '28px' }}>
           <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>Analytics 📊</h1>
@@ -125,7 +136,7 @@ export default function Analytics() {
         </div>
 
         {loading && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
+          <div className="an-loading-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
             {[1,2,3,4].map(i => <div key={i} className="skeleton" style={{ height: '200px' }} />)}
           </div>
         )}
@@ -141,7 +152,7 @@ export default function Analytics() {
         {!loading && matches.length > 0 && (
           <>
             {/* KPI chips */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '24px' }}>
+            <div className="an-kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '14px', marginBottom: '24px' }}>
               {[
                 { label: 'Total Spent', value: `₹${totalSpent.toLocaleString('en-IN')}`, icon: '💰', color: '#10b981' },
                 { label: 'Matches Played', value: matches.length, icon: '⚽', color: '#60a5fa' },
@@ -150,7 +161,7 @@ export default function Analytics() {
               ].map((s, i) => (
                 <div key={i} className="stat-chip" style={{ animationDelay: `${i * 0.08}s` }}>
                   <div style={{ fontSize: '22px', marginBottom: '10px' }}>{s.icon}</div>
-                  <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '26px', fontWeight: 800, color: s.color, letterSpacing: '-0.02em' }}>{s.value}</div>
+                  <div className="stat-chip-value" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '26px', fontWeight: 800, color: s.color, letterSpacing: '-0.02em' }}>{s.value}</div>
                   <div style={{ fontSize: '13px', color: '#71717a', marginTop: '4px' }}>{s.label}</div>
                 </div>
               ))}
@@ -187,7 +198,7 @@ export default function Analytics() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+            <div className="an-charts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
               {/* Sport breakdown */}
               <div className="an-card" style={{ animationDelay: '0.15s' }}>
                 <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700, marginBottom: '20px' }}>Spend by Sport</h3>

@@ -48,6 +48,29 @@ const styles = `
   .modal-input:focus { border-color: #10b981; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    .md-nav { padding: 14px 16px !important; }
+    .md-nav-links { gap: 12px !important; }
+    .md-page { padding: 16px !important; padding-bottom: 80px !important; }
+    .md-header { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; margin-bottom: 24px !important; }
+    .md-header h1 { font-size: 24px !important; }
+    .md-header-actions { justify-content: stretch; width: 100%; }
+    .md-header-actions .outline-btn, .md-header-actions .action-btn { flex: 1; justify-content: center; text-align: center; }
+    .md-main-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+    .md-summary-cards { grid-template-columns: 1fr 1fr !important; }
+    .md-card { padding: 16px !important; }
+    
+    .player-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .pr-left { width: 100%; }
+    .pr-right { width: 100%; justify-content: space-between; }
+    
+    .md-player-tabs { overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+    .md-player-tabs button { flex-shrink: 0; }
+    
+    .modal-content { max-width: 90vw !important; margin: 16px; padding: 20px !important; }
+  }
+`;
 `;
 
 const COLORS = ['#10b981','#60a5fa','#c084fc','#f472b6','#fb923c','#34d399','#fbbf24','#818cf8','#f87171','#38bdf8'];
@@ -212,17 +235,17 @@ export default function MatchDetails() {
       <style>{styles}</style>
 
       {/* Nav */}
-      <nav style={{ padding: '20px 32px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(9,9,11,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
+      <nav className="md-nav" style={{ padding: '20px 32px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(9,9,11,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
         <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981', textDecoration: 'none' }}>⚽ ContriPlayy</Link>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div className="md-nav-links" style={{ display: 'flex', gap: '12px' }}>
           <Link to="/dashboard" className="outline-btn">← Dashboard</Link>
           <button className="action-btn" onClick={() => setReminded(true)}>{reminded ? '✓ Sent!' : '🔔 Send Reminders'}</button>
         </div>
       </nav>
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 24px' }}>
+      <div className="md-page" style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 24px' }}>
         {/* Header */}
-        <div style={{ marginBottom: '32px', animation: 'fadeInUp 0.5s ease forwards' }}>
+        <div className="md-header" style={{ marginBottom: '32px', animation: 'fadeInUp 0.5s ease forwards' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px', flexWrap: 'wrap' }}>
             <div style={{ fontSize: '12px', fontWeight: 600, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Match #{id.slice(-6).toUpperCase()}</div>
             <span className="status-badge" style={{
@@ -242,11 +265,11 @@ export default function MatchDetails() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
+        <div className="md-main-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
           {/* Left */}
           <div>
             {/* Summary Cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
+            <div className="md-summary-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
               {[
                 { label: 'Total Cost', value: `₹${total.toLocaleString('en-IN')}`, icon: '💰', sub: players.length > 0 ? `₹${(total / players.length).toFixed(0)} per head` : '—', color: '#f4f4f5' },
                 { label: 'Collected', value: `₹${Math.round(collected).toLocaleString('en-IN')}`, icon: '✅', sub: `${fullPaidPlayers.length} full, ${partialPlayers.length} partial`, color: '#10b981' },
@@ -280,7 +303,7 @@ export default function MatchDetails() {
             <div className="md-card" style={{ animationDelay: '0.4s' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700 }}>Players</h3>
-                <div style={{ display: 'flex', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '3px', gap: '2px' }}>
+                <div className="md-player-tabs" style={{ display: 'flex', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '3px', gap: '2px' }}>
                   {[['all', 'All'], ['paid', `Paid (${fullPaidPlayers.length})`], ['partial', `Partial (${partialPlayers.length})`], ['pending', `Pending (${unpaidPlayers.length})`]].map(([val, label]) => (
                     <button key={val} onClick={() => setTab(val)} style={{ padding: '5px 12px', borderRadius: '6px', border: 'none', background: tab === val ? '#10b981' : 'transparent', color: tab === val ? '#022c22' : '#71717a', fontWeight: 600, fontSize: '12px', cursor: 'pointer', transition: 'all 0.2s', fontFamily: 'Inter, sans-serif' }}>
                       {label}
@@ -299,14 +322,14 @@ export default function MatchDetails() {
                 
                 return (
                   <div key={i} className="player-row">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div className="pr-left" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <div className="avatar" style={{ background: BG[colorIdx], color: COLORS[colorIdx] }}>{p.name[0]?.toUpperCase()}</div>
                       <div>
                         <div style={{ fontWeight: 600, fontSize: '14px' }}>{p.name}</div>
                         <div style={{ fontSize: '12px', color: '#52525b', marginTop: '2px' }}>{p.method}</div>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div className="pr-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <div style={{ textAlign: 'right' }}>
                         <div style={{ fontWeight: 700, fontSize: '15px', color: p.status === 'paid' ? '#10b981' : p.status === 'partial' ? '#60a5fa' : '#fbbf24' }}>
                           ₹{p.amountPaid.toFixed(0)} <span style={{ color: '#52525b', fontSize: '12px', fontWeight: 500 }}>/ ₹{p.amount.toFixed(0)}</span>
@@ -327,7 +350,7 @@ export default function MatchDetails() {
 
               {/* Close / Reopen match */}
               {match.status !== 'done' && unpaidPlayers.length === 0 && partialPlayers.length === 0 && players.length > 0 && (
-                <div style={{ marginTop: '16px', padding: '14px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="md-header-actions" style={{ marginTop: '16px', padding: '14px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontSize: '14px', fontWeight: 600, color: '#10b981' }}>🎉 All players have paid in full!</div>
                     <div style={{ fontSize: '12px', color: '#52525b', marginTop: '2px' }}>Mark this match as completed.</div>

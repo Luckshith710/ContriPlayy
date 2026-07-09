@@ -28,6 +28,21 @@ const styles = `
   .search-input:focus { border-color: rgba(16,185,129,0.4); }
   .search-input::placeholder { color: #52525b; }
   .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
+
+  @media (max-width: 768px) {
+    .mh-layout { flex-direction: column !important; }
+    .mh-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .mh-summary-strip { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .mh-filters { flex-direction: column !important; gap: 8px !important; align-items: stretch !important; }
+    .search-input { width: 100% !important; font-size: 16px !important; box-sizing: border-box; }
+    .filter-groups { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mh-card { flex-wrap: wrap; padding: 14px 16px; gap: 10px; }
+    .mh-card-left { min-width: 0; flex: 1; }
+    .mh-card-middle { width: 100%; }
+    .mh-card-middle .progress-bar { width: 100% !important; }
+    .mh-card-right { flex-shrink: 0; }
+    .filter-btn { padding: 7px 12px; font-size: 12px; }
+  }
 `;
 
 function formatDate(d) {
@@ -75,11 +90,11 @@ export default function MatchHistory() {
   const totalSpent = filtered.reduce((a, m) => a + (m.totalCost || 0), 0);
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
+    <div className="mh-layout" style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
       <style>{styles}</style>
       <Sidebar active="Match History" />
 
-      <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+      <div className="mh-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
         {/* Header */}
         <div style={{ marginBottom: '28px' }}>
           <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>
@@ -89,7 +104,7 @@ export default function MatchHistory() {
         </div>
 
         {/* Summary strip */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px' }}>
+        <div className="mh-summary-strip" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px' }}>
           {[
             { label: 'Total Matches', value: matches.length, icon: '⚽' },
             { label: 'Filtered Results', value: filtered.length, icon: '🔍' },
@@ -106,20 +121,20 @@ export default function MatchHistory() {
         </div>
 
         {/* Filters */}
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '20px' }}>
+        <div className="mh-filters" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '20px' }}>
           <input
             className="search-input"
             placeholder="🔍  Search by venue..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
-          <div style={{ display: 'flex', gap: '6px' }}>
+          <div className="filter-groups" style={{ display: 'flex', gap: '6px' }}>
             {[['all', 'All'], ['active', 'Active'], ['done', 'Completed']].map(([val, label]) => (
               <button key={val} className={`filter-btn ${filterStatus === val ? 'active' : ''}`} onClick={() => setFilterStatus(val)}>{label}</button>
             ))}
           </div>
           {sports.length > 1 && (
-            <div style={{ display: 'flex', gap: '6px' }}>
+            <div className="filter-groups" style={{ display: 'flex', gap: '6px' }}>
               {sports.map(s => (
                 <button key={s} className={`filter-btn ${filterSport === s ? 'active' : ''}`} onClick={() => setFilterSport(s)}>
                   {s === 'all' ? 'All Sports' : s}
@@ -165,7 +180,7 @@ export default function MatchHistory() {
             return (
               <Link key={m.id} to={`/match-details/${m.id}`} className="mh-card" style={{ animationDelay: `${i * 0.04}s` }}>
                 {/* Left: sport + info */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
+                <div className="mh-card-left" style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: 0 }}>
                   <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', flexShrink: 0 }}>
                     {m.sportEmoji || '⚽'}
                   </div>
@@ -176,7 +191,7 @@ export default function MatchHistory() {
                 </div>
 
                 {/* Middle: progress */}
-                <div style={{ flexShrink: 0, textAlign: 'right' }}>
+                <div className="mh-card-middle" style={{ flexShrink: 0, textAlign: 'right' }}>
                   <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '6px', color: '#a1a1aa' }}>
                     ₹{Math.round(collected).toLocaleString('en-IN')} <span style={{ color: '#52525b', fontWeight: 400 }}>/ ₹{(m.totalCost || 0).toLocaleString('en-IN')}</span>
                   </div>
@@ -186,7 +201,7 @@ export default function MatchHistory() {
                 </div>
 
                 {/* Right: status + arrow */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                <div className="mh-card-right" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
                   <span className={`pill ${m.status === 'active' ? 'pill-active' : m.status === 'done' ? 'pill-done' : 'pill-pending'}`}>
                     {m.status === 'active' ? '● Active' : m.status === 'done' ? '✓ Done' : '⏳ Pending'}
                   </span>

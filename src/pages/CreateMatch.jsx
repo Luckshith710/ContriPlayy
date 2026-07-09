@@ -31,6 +31,22 @@ const styles = `
   .section-card { background: rgba(12,12,14,0.7); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px; margin-bottom: 20px; }
   .error-banner { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #f87171; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .spinner { width: 18px; height: 18px; border: 2px solid rgba(2,44,34,0.4); border-top: 2px solid #022c22; border-radius: 50%; animation: spin 0.6s linear infinite; }
+
+  @media (max-width: 768px) {
+    .cm-nav { padding: 14px 16px !important; }
+    .cm-page { padding: 24px 14px !important; }
+    .cm-page h1 { font-size: 24px !important; }
+    .section-card { padding: 20px 16px !important; border-radius: 12px; }
+    .sport-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
+    .venue-time-grid { grid-template-columns: 1fr !important; }
+    .cm-input, .cm-select { font-size: 16px !important; padding: 12px 14px !important; }
+    .submit-btn { padding: 14px; font-size: 15px; }
+    .player-chip { flex-wrap: wrap; gap: 8px; }
+    .add-player-row { flex-direction: column !important; }
+    .add-player-row input { width: 100% !important; }
+    .add-player-btn { width: 100%; padding: 12px !important; border-radius: 10px !important; font-size: 16px !important; }
+    .remove-btn { width: 32px; height: 32px; flex-shrink: 0; }
+  }
 `;
 
 const sports = [
@@ -124,12 +140,12 @@ export default function CreateMatch() {
       <style>{styles}</style>
 
       {/* Navbar */}
-      <nav style={{ padding: '20px 32px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(9,9,11,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
+      <nav className="cm-nav" style={{ padding: '20px 32px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(9,9,11,0.8)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
         <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981', textDecoration: 'none' }}>⚽ ContriPlayy</Link>
         <Link to="/dashboard" style={{ color: '#71717a', textDecoration: 'none', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>← Dashboard</Link>
       </nav>
 
-      <div style={{ maxWidth: '680px', margin: '0 auto', padding: '40px 24px' }}>
+      <div className="cm-page" style={{ maxWidth: '680px', margin: '0 auto', padding: '40px 24px' }}>
         <div style={{ marginBottom: '36px', animation: 'fadeInUp 0.5s ease forwards' }}>
           <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '32px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '8px' }}>Create New Match ⚡</h1>
           <p style={{ color: '#71717a', fontSize: '15px' }}>Set up your match and invite your squad</p>
@@ -144,7 +160,7 @@ export default function CreateMatch() {
         {/* Sport */}
         <div className="section-card" style={{ animation: 'fadeInUp 0.5s ease 0.05s both' }}>
           <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>🏅 Sport</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px' }}>
+          <div className="sport-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '8px' }}>
             {sports.map(s => (
               <button key={s.name} className={`sport-btn ${sport === s.name ? 'selected' : ''}`} onClick={() => setSport(s.name)}>
                 <span style={{ fontSize: '24px' }}>{s.emoji}</span>
@@ -157,7 +173,7 @@ export default function CreateMatch() {
         {/* Venue & Time */}
         <div className="section-card" style={{ animation: 'fadeInUp 0.5s ease 0.1s both' }}>
           <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>📍 Venue & Time</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+          <div className="venue-time-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
             <div style={{ gridColumn: '1 / -1' }}>
               <label style={{ fontSize: '12px', fontWeight: 600, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '8px' }}>Venue Name</label>
               <input className="cm-input" type="text" placeholder="Arena X, GreenField Turf..." value={venue} onChange={e => setVenue(e.target.value)} />
@@ -217,7 +233,7 @@ export default function CreateMatch() {
               </div>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="add-player-row" style={{ display: 'flex', gap: '8px' }}>
             <input
               className="cm-input"
               type="text"
@@ -227,7 +243,7 @@ export default function CreateMatch() {
               onKeyDown={e => e.key === 'Enter' && addPlayer()}
               style={{ flex: 1 }}
             />
-            <button onClick={addPlayer} style={{ padding: '0 20px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '10px', color: '#10b981', fontWeight: 700, cursor: 'pointer', fontSize: '20px', transition: 'all 0.2s' }}>+</button>
+            <button className="add-player-btn" onClick={addPlayer} style={{ padding: '0 20px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '10px', color: '#10b981', fontWeight: 700, cursor: 'pointer', fontSize: '20px', transition: 'all 0.2s' }}>+</button>
           </div>
         </div>
 

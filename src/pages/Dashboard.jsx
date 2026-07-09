@@ -34,6 +34,35 @@ const styles = `
   .logout-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: #f87171; font-size: 14px; font-weight: 500; transition: all 0.2s; background: none; border: none; width: 100%; cursor: pointer; font-family: 'Inter', sans-serif; }
   .logout-btn:hover { background: rgba(248,113,113,0.08); }
   .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.04) 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
+
+  @media (max-width: 768px) {
+    .dash-layout { flex-direction: column !important; }
+    .dash-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .dash-header { flex-direction: column !important; gap: 12px !important; margin-bottom: 20px !important; }
+    .dash-header h1 { font-size: 22px !important; }
+    .dash-header .action-btn { width: 100%; justify-content: center; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; margin-bottom: 20px !important; }
+    .stat-card { padding: 14px !important; }
+    .stat-card-value { font-size: 18px !important; }
+    .match-table { border-radius: 12px; }
+    .match-table-header { display: none !important; }
+    .match-row {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      padding: 14px !important;
+      position: relative;
+    }
+    .match-row-top { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .match-row-meta { display: flex; align-items: center; gap: 12px; width: 100%; }
+    .match-row-progress { width: 100%; }
+    .tab-btn { padding: 6px 10px; font-size: 12px; }
+    .tabs-bar { padding: 12px 12px 0 !important; overflow-x: auto; white-space: nowrap; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr 1fr !important; }
+    .stat-card-value { font-size: 16px !important; }
+  }
 `;
 
 function formatDate(dateStr) {
@@ -96,7 +125,7 @@ export default function Dashboard() {
   const settlementRate = totalPlayers > 0 ? Math.round((paidPlayers / totalPlayers) * 100) : 0;
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
+    <div className="dash-layout" style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
       <style>{styles}</style>
 
       {/* Sidebar */}
@@ -140,9 +169,9 @@ export default function Dashboard() {
       </div>
 
       {/* Main */}
-      <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+      <div className="dash-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
         {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
+        <div className="dash-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px' }}>
           <div>
             <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>
               Dashboard 🏆
@@ -153,7 +182,7 @@ export default function Dashboard() {
         </div>
 
         {/* Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
+        <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
           {[
             { label: 'Total Matches', value: matches.length.toString(), icon: '⚽', change: `${matches.filter(m => m.status === 'active').length} active`, changeColor: '#10b981' },
             { label: 'Total Spent', value: `₹${totalSpent.toLocaleString('en-IN')}`, icon: '💰', change: 'all time', changeColor: '#10b981' },
@@ -165,16 +194,16 @@ export default function Dashboard() {
                 <span style={{ fontSize: '22px' }}>{s.icon}</span>
                 <span style={{ fontSize: '11px', color: s.changeColor, fontWeight: 600 }}>{s.change}</span>
               </div>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '24px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>{s.value}</div>
+              <div className="stat-card-value" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '24px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>{s.value}</div>
               <div style={{ fontSize: '13px', color: '#71717a' }}>{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* Matches Table */}
-        <div style={{ background: 'rgba(12,12,14,0.7)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', overflow: 'hidden' }}>
+        <div className="match-table" style={{ background: 'rgba(12,12,14,0.7)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', overflow: 'hidden' }}>
           {/* Tabs */}
-          <div style={{ display: 'flex', gap: '4px', padding: '16px 16px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="tabs-bar" style={{ display: 'flex', gap: '4px', padding: '16px 16px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
             {[['all', 'All Matches'], ['active', 'Active'], ['pending', 'Pending'], ['done', 'Completed']].map(([val, label]) => (
               <button
                 key={val}
@@ -192,7 +221,7 @@ export default function Dashboard() {
           </div>
 
           {/* Table Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 1fr 1fr 1fr', padding: '12px 16px', fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div className="match-table-header" style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr 1fr 1fr 1fr 1fr', padding: '12px 16px', fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <div>Match</div><div>Venue</div><div>Date</div><div>Players</div><div>Progress</div><div>Status</div>
           </div>
 
@@ -243,25 +272,32 @@ export default function Dashboard() {
 
             return (
               <Link key={m.id} to={`/match-details/${m.id}`} className="match-row">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className="match-row-top" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ fontSize: '20px' }}>{m.sportEmoji || '⚽'}</span>
                   <span style={{ fontWeight: 700, fontSize: '13px', color: '#71717a' }}>#{m.id.slice(-4).toUpperCase()}</span>
-                </div>
-                <div style={{ fontSize: '14px', color: '#a1a1aa', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.venue}</div>
-                <div style={{ fontSize: '13px', color: '#71717a' }}>{formatDate(m.date)}</div>
-                <div style={{ fontSize: '14px' }}>👤 {playerList.length}</div>
-                <div>
-                  <div style={{ fontSize: '13px', fontWeight: 600 }}>
-                    ₹{Math.round(paidAmt).toLocaleString('en-IN')} <span style={{ color: '#52525b', fontWeight: 400 }}>/ ₹{totalAmt.toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: `${progress}%` }} />
-                  </div>
-                </div>
-                <div>
-                  <span className={`pill ${m.status === 'active' ? 'pill-active' : m.status === 'done' ? 'pill-done' : 'pill-pending'}`}>
+                  <span style={{ marginLeft: 'auto' }} className={`pill ${m.status === 'active' ? 'pill-active' : m.status === 'done' ? 'pill-done' : 'pill-pending'}`}>
                     {m.status === 'active' ? '● Active' : m.status === 'done' ? '✓ Done' : '⏳ Pending'}
                   </span>
+                </div>
+                <div className="match-row-meta" style={{ display: 'contents' }}>
+                  <div style={{ fontSize: '14px', color: '#a1a1aa', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.venue}</div>
+                  <div style={{ fontSize: '13px', color: '#71717a' }}>{formatDate(m.date)}</div>
+                  <div style={{ fontSize: '14px' }}>👤 {playerList.length}</div>
+                </div>
+                <div className="match-row-progress" style={{ display: 'contents' }}>
+                  <div>
+                    <div style={{ fontSize: '13px', fontWeight: 600 }}>
+                      ₹{Math.round(paidAmt).toLocaleString('en-IN')} <span style={{ color: '#52525b', fontWeight: 400 }}>/ ₹{totalAmt.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div className="progress-bar">
+                      <div className="progress-fill" style={{ width: `${progress}%` }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'none' }}>
+                    <span className={`pill ${m.status === 'active' ? 'pill-active' : m.status === 'done' ? 'pill-done' : 'pill-pending'}`}>
+                      {m.status === 'active' ? '● Active' : m.status === 'done' ? '✓ Done' : '⏳ Pending'}
+                    </span>
+                  </div>
                 </div>
               </Link>
             );

@@ -18,6 +18,19 @@ const styles = `
   .match-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.05); color: #a1a1aa; }
   .sort-btn { padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: #71717a; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .sort-btn.active { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); color: #10b981; }
+
+  @media (max-width: 768px) {
+    .ms-layout { flex-direction: column !important; }
+    .ms-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .ms-stats { grid-template-columns: 1fr !important; gap: 8px !important; }
+    .ms-sort-row { flex-wrap: wrap; gap: 6px; }
+    .sort-btn { padding: 6px 12px; font-size: 12px; }
+    .ms-grid { grid-template-columns: 1fr !important; }
+    .player-card:hover { transform: none; }
+  }
+  @media (max-width: 480px) {
+    .ms-stats { grid-template-columns: 1fr 1fr !important; }
+  }
 `;
 
 const COLORS = ['#10b981','#60a5fa','#c084fc','#f472b6','#fb923c','#34d399','#fbbf24','#818cf8','#f87171','#38bdf8','#a78bfa','#4ade80'];
@@ -82,11 +95,11 @@ export default function MySquads() {
   else if (sortBy === 'rate') players.sort((a, b) => (b.paidCount / b.matchCount) - (a.paidCount / a.matchCount));
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
+    <div className="ms-layout" style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
       <style>{styles}</style>
       <Sidebar active="My Squads" />
 
-      <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+      <div className="ms-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
         {/* Header */}
         <div style={{ marginBottom: '28px' }}>
           <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>My Squads 👥</h1>
@@ -95,7 +108,7 @@ export default function MySquads() {
 
         {/* Stats */}
         {!loading && players.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px' }}>
+          <div className="ms-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '28px' }}>
             {[
               { label: 'Unique Players', value: players.length, icon: '👤' },
               { label: 'Total Matches', value: matches.length, icon: '⚽' },
@@ -113,7 +126,7 @@ export default function MySquads() {
         )}
 
         {/* Sort controls */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+        <div className="ms-sort-row" style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
           <span style={{ fontSize: '13px', color: '#52525b', alignSelf: 'center', marginRight: '4px' }}>Sort by:</span>
           {[['matches', '# Matches'], ['spent', 'Amount Paid'], ['rate', 'Pay Rate']].map(([val, label]) => (
             <button key={val} className={`sort-btn ${sortBy === val ? 'active' : ''}`} onClick={() => setSortBy(val)}>{label}</button>
@@ -122,7 +135,7 @@ export default function MySquads() {
 
         {/* Player Grid */}
         {loading && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+          <div className="ms-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
             {[1,2,3,4,5,6].map(i => <div key={i} className="skeleton" style={{ height: '180px' }} />)}
           </div>
         )}
@@ -135,7 +148,7 @@ export default function MySquads() {
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '14px' }}>
+        <div className="ms-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '14px' }}>
           {players.map((p, i) => {
             const ci = getColorIndex(p.name);
             const payRate = p.matchCount > 0 ? Math.round((p.paidCount / p.matchCount) * 100) : 0;

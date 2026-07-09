@@ -13,26 +13,28 @@ import { auth, googleProvider } from '../firebase';
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
   * { box-sizing: border-box; }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #09090b; }
-  ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 3px; }
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .si-card { background: rgba(12,12,14,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; backdrop-filter: blur(20px); width: 100%; max-width: 420px; animation: fadeInUp 0.6s ease forwards; }
-  .si-input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #f4f4f5; font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: 'Inter', sans-serif; }
-  .si-input:focus { border-color: #10b981; box-shadow: 0 0 0 3px rgba(16,185,129,0.15); }
-  .si-input::placeholder { color: #52525b; }
-  .si-input.error { border-color: #f87171; box-shadow: 0 0 0 3px rgba(248,113,113,0.15); animation: shake 0.4s ease; }
-  .si-btn { width: 100%; padding: 14px; background: #10b981; color: #022c22; font-weight: 700; font-size: 15px; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .si-btn:hover:not(:disabled) { background: #34d399; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(16,185,129,0.4); }
-  .si-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+  @keyframes float-delayed { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .si-card { padding: 48px; background: rgba(12,12,14,0.8); border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; width: 100%; max-width: 440px; position: relative; z-index: 10; backdrop-filter: blur(20px); box-shadow: 0 24px 64px rgba(0,0,0,0.4); animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .si-input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: #f4f4f5; font-size: 15px; outline: none; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+  .si-input:focus { border-color: #10b981; background: rgba(255,255,255,0.05); }
+  .si-btn { width: 100%; padding: 14px; background: #10b981; color: #022c22; border: none; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  .si-btn:hover { background: #34d399; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,185,129,0.3); }
+  .si-btn-google { background: white; color: #18181b; }
+  .si-btn-google:hover { background: #f4f4f5; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+  .shape-1 { position: absolute; top: 15%; left: 15%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0) 70%); border-radius: 50%; filter: blur(40px); animation: float 8s ease-in-out infinite; z-index: 1; }
+  .shape-2 { position: absolute; bottom: 15%; right: 15%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(96,165,250,0.1) 0%, rgba(96,165,250,0) 70%); border-radius: 50%; filter: blur(50px); animation: float-delayed 10s ease-in-out infinite; z-index: 1; }
+
+  @media (max-width: 768px) {
+    .si-layout { padding: 20px !important; }
+    .si-card { padding: 32px 24px !important; }
+  }
   .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
   .divider span { color: #52525b; font-size: 13px; white-space: nowrap; }
   .google-btn { width: 100%; padding: 13px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #e4e4e7; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; gap: 10px; }
   .google-btn:hover:not(:disabled) { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
-  .google-btn:disabled { opacity: 0.6; cursor: not-allowed; }
   .tab { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .tab.active { background: #10b981; color: #022c22; }
   .tab.inactive { background: transparent; color: #71717a; }
@@ -139,13 +141,12 @@ export default function SignIn() {
   };
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px', position: 'relative', overflow: 'hidden' }}>
+    <div className="si-layout" style={{ background: '#09090b', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Inter', sans-serif", position: 'relative', overflow: 'hidden' }}>
       <style>{styles}</style>
 
       {/* BG effects */}
-      <div style={{ position: 'absolute', top: '10%', left: '20%', width: '400px', height: '400px', background: 'radial-gradient(ellipse, rgba(16,185,129,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '10%', right: '15%', width: '300px', height: '300px', background: 'radial-gradient(ellipse, rgba(16,185,129,0.05) 0%, transparent 70%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)', backgroundSize: '60px 60px', pointerEvents: 'none' }} />
+      <div className="shape-1" />
+      <div className="shape-2" />
 
       {/* Logo */}
       <Link to="/" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '22px', fontWeight: 800, color: '#10b981', textDecoration: 'none', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '8px' }}>

@@ -96,7 +96,7 @@ export default function LandingPage() {
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { -webkit-font-smoothing: antialiased; }
+        body { -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 3px; }
@@ -163,7 +163,7 @@ export default function LandingPage() {
         .faq-item.open { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.03); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
         .faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 600; color: #f4f4f5; transition: color 0.2s; user-select: none; }
         .faq-item.open .faq-question { color: #10b981; }
-        .faq-chevron { font-size: 20px; transition: transform 0.3s ease; color: #71717a; }
+        .faq-chevron { font-size: 20px; transition: transform 0.3s ease; color: #71717a; flex-shrink: 0; margin-left: 12px; }
         .faq-item.open .faq-chevron { transform: rotate(180deg); color: #10b981; }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
         .faq-item.open .faq-answer { max-height: 500px; }
@@ -203,11 +203,45 @@ export default function LandingPage() {
         @media (max-width: 768px) {
           .desktop-nav { display: none; }
           .mobile-nav-btn { display: block; z-index: 101; }
-          .hero-section-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .hero-section-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .features-grid, .steps-grid { grid-template-columns: 1fr !important; }
-          .hero-title { text-align: center; }
+          .hero-title { text-align: center; font-size: clamp(32px, 9vw, 48px) !important; }
           .hero-text-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
-          .stats-bar { justify-content: center; }
+          .hero-text-content p { max-width: 100% !important; font-size: 15px !important; }
+          .stats-bar { justify-content: center; gap: 16px; }
+          .stat-num { font-size: 22px; }
+          .hero-section { padding: 100px 16px 60px !important; }
+          .features-section { padding: 60px 16px !important; }
+          .how-it-works-section { padding: 60px 16px !important; }
+          .pricing-section { padding: 60px 16px !important; }
+          .faq-section { padding: 60px 16px !important; }
+          .cta-outer-section { padding: 40px 16px 80px !important; }
+          .cta-section { padding: 48px 24px !important; border-radius: 16px; }
+          .cta-section .cta-title { font-size: clamp(28px, 8vw, 40px) !important; }
+          .landing-footer { padding: 32px 16px !important; }
+          .section-heading { font-size: clamp(24px, 7vw, 36px) !important; }
+          .step-card { padding: 24px; }
+          .step-number { font-size: 48px; }
+          .pricing-card { padding: 28px 24px; }
+          .pricing-price { font-size: 40px; }
+          .mockup-card { padding: 18px; animation: none; }
+          .player-row { padding: 10px 12px; }
+          .hero-mockup-wrap { max-width: 100%; width: 100%; }
+          .faq-question { padding: 16px 18px; font-size: 14px; }
+          .faq-answer-inner { padding: 0 18px 16px; font-size: 14px; }
+          .mobile-menu-overlay { gap: 24px; }
+          .mobile-nav-link { font-size: 20px; }
+          .hero-cta-row { flex-direction: column; align-items: center; width: 100%; }
+          .hero-cta-row .btn-primary, .hero-cta-row .btn-secondary { width: 100%; max-width: 320px; box-sizing: border-box; }
+          .cta-btn-row { flex-direction: column; align-items: center; }
+          .cta-btn-row .btn-primary, .cta-btn-row .btn-secondary { width: 100%; max-width: 300px; font-size: 15px !important; padding: 14px 24px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-title { font-size: clamp(28px, 8vw, 38px) !important; }
+          .hero-text-content p { font-size: 14px !important; }
+          .features-section { padding: 48px 14px !important; }
+          .card { border-radius: 12px; }
+          .pricing-grid { gap: 16px; }
         }
       `}</style>
 
@@ -268,7 +302,7 @@ export default function LandingPage() {
       </div>
 
       {/* HERO */}
-      <section className="grid-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '140px 32px 80px', maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
+      <section className="grid-bg hero-section" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '140px 32px 80px', maxWidth: '1200px', margin: '0 auto', position: 'relative' }}>
         <div className="hero-glow" />
         <div className="hero-section-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center', width: '100%' }}>
           {/* Left */}
@@ -280,13 +314,13 @@ export default function LandingPage() {
             <p style={{ fontSize: '17px', color: '#a1a1aa', lineHeight: 1.7, marginBottom: '36px', maxWidth: '480px' }}>
               The ultimate platform for friends to split sports booking expenses, automate calculations, and track payments seamlessly. Stop chasing money, start playing more.
             </p>
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <div className="hero-cta-row" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Link to="/dashboard" className="btn-primary">Get Started Free →</Link>
             </div>
           </div>
 
           {/* Right — Mockup */}
-          <div style={{ animation: 'fadeInUp 0.8s ease 0.2s forwards', opacity: 0 }}>
+          <div className="hero-mockup-wrap" style={{ animation: 'fadeInUp 0.8s ease 0.2s forwards', opacity: 0 }}>
             <div className="mockup-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px' }}>
                 <div>
@@ -331,10 +365,10 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" style={{ padding: '100px 32px', maxWidth: '1200px', margin: '0 auto', scrollMarginTop: '80px' }}>
+      <section id="features" className="features-section" style={{ padding: '100px 32px', maxWidth: '1200px', margin: '0 auto', scrollMarginTop: '80px' }}>
         <div className="animate-on-scroll" style={{ textAlign: 'center', marginBottom: '64px' }}>
           <div style={{ display: 'inline-block', padding: '4px 14px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '100px', fontSize: '12px', fontWeight: 600, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Features</div>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Designed for Performance</h2>
+          <h2 className="section-heading" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Designed for Performance</h2>
           <p style={{ color: '#71717a', fontSize: '17px', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}>Skip the manual spreadsheets. ContriPlayy brings elite financial tracking to your local turf matches.</p>
         </div>
         <div className="features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
@@ -349,7 +383,7 @@ export default function LandingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" style={{ padding: '100px 32px', background: 'rgba(16,185,129,0.02)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', scrollMarginTop: '80px' }}>
+      <section id="how-it-works" className="how-it-works-section" style={{ padding: '100px 32px', background: 'rgba(16,185,129,0.02)', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)', scrollMarginTop: '80px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div className="animate-on-scroll" style={{ textAlign: 'center', marginBottom: '64px' }}>
             <div style={{ display: 'inline-block', padding: '4px 14px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '100px', fontSize: '12px', fontWeight: 600, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>How It Works</div>
@@ -372,7 +406,7 @@ export default function LandingPage() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" style={{ padding: '100px 32px', maxWidth: '1200px', margin: '0 auto', scrollMarginTop: '80px' }}>
+      <section id="pricing" className="pricing-section" style={{ padding: '100px 32px', maxWidth: '1200px', margin: '0 auto', scrollMarginTop: '80px' }}>
         <div className="animate-on-scroll" style={{ textAlign: 'center', marginBottom: '64px' }}>
           <div style={{ display: 'inline-block', padding: '4px 14px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '100px', fontSize: '12px', fontWeight: 600, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Pricing</div>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '16px' }}>Fair Pricing for Every Squad</h2>
@@ -429,7 +463,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ padding: '100px 32px', maxWidth: '800px', margin: '0 auto', scrollMarginTop: '80px' }}>
+      <section id="faq" className="faq-section" style={{ padding: '100px 32px', maxWidth: '800px', margin: '0 auto', scrollMarginTop: '80px' }}>
         <div className="animate-on-scroll" style={{ textAlign: 'center', marginBottom: '64px' }}>
           <div style={{ display: 'inline-block', padding: '4px 14px', background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '100px', fontSize: '12px', fontWeight: 600, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>FAQ</div>
           <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em' }}>Frequently Asked Questions</h2>
@@ -450,12 +484,12 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: '60px 32px 100px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section className="cta-outer-section" style={{ padding: '60px 32px 100px', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="cta-section animate-on-scroll">
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '20px' }}>Ready to game<br /><span style={{ background: 'linear-gradient(135deg, #10b981, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>without the drama?</span></div>
+            <div className="cta-title" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: '20px' }}>Ready to game<br /><span style={{ background: 'linear-gradient(135deg, #10b981, #34d399)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>without the drama?</span></div>
             <p style={{ color: '#71717a', fontSize: '17px', marginBottom: '36px' }}>Join thousands of friend groups already using ContriPlayy.</p>
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className="cta-btn-row" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/signin" className="btn-primary" style={{ fontSize: '16px', padding: '16px 36px' }}>Start Your First Split →</Link>
               <Link to="/dashboard" className="btn-secondary" style={{ fontSize: '16px', padding: '16px 36px' }}>View Dashboard</Link>
             </div>
@@ -464,7 +498,7 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 32px', maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+      <footer className="landing-footer" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 32px', maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
         <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '18px', fontWeight: 800, color: '#10b981' }}>⚽ ContriPlayy</div>
       </footer>
     </div>

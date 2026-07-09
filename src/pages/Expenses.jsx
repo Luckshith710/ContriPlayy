@@ -21,6 +21,31 @@ const styles = `
   .match-row { display: grid; grid-template-columns: 1fr 2fr 1fr 1fr; align-items: center; padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
   .match-row:hover { background: rgba(16,185,129,0.04); }
   .match-row:last-child { border-bottom: none; }
+
+  @media (max-width: 768px) {
+    .ex-layout { flex-direction: column !important; }
+    .ex-main { padding: 16px !important; padding-bottom: 80px !important; }
+    .ex-page-header { flex-direction: column !important; gap: 14px !important; align-items: stretch !important; }
+    .ex-name-bar { flex-direction: column !important; gap: 8px !important; width: 100% !important; padding: 12px !important; }
+    .ex-input { width: 100% !important; font-size: 16px; box-sizing: border-box; }
+    .ex-save-btn { width: 100%; padding: 12px !important; border-radius: 8px; }
+    .ex-kpi-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+    .ex-charts-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+    .ex-table-header { display: none !important; }
+    .match-row {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 4px !important;
+      padding: 14px 16px !important;
+      align-items: flex-start !important;
+    }
+    .match-row-venue { font-weight: 600; font-size: 14px; color: #e4e4e7; }
+    .match-row-meta { font-size: 12px; color: #71717a; }
+    .match-row-amounts { display: flex; gap: 16px; margin-top: 4px; }
+  }
+  @media (max-width: 480px) {
+    .ex-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+  }
 `;
 
 const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -119,18 +144,18 @@ export default function Expenses() {
   const maxWeekSpend = Math.max(...weekData.map(w => w.spent), 1);
 
   return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
+    <div className="ex-layout" style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', display: 'flex' }}>
       <style>{styles}</style>
       <Sidebar active="My Expenses" />
 
-      <div style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
-        <div style={{ marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+      <div className="ex-main" style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+        <div className="ex-page-header" style={{ marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
             <h1 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '28px', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '4px' }}>My Expenses 💳</h1>
             <p style={{ color: '#71717a', fontSize: '14px' }}>Track your personal spending across all matches.</p>
           </div>
           
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '10px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="ex-name-bar" style={{ display: 'flex', gap: '8px', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '10px 16px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' }}>
             <div style={{ fontSize: '12px', color: '#71717a', fontWeight: 600 }}>MY PLAYER NAME</div>
             <input 
               className="ex-input" 
@@ -139,6 +164,7 @@ export default function Expenses() {
               placeholder="e.g. John Doe"
             />
             <button 
+              className="ex-save-btn"
               onClick={handleSaveName}
               style={{ padding: '10px 16px', background: '#10b981', color: '#022c22', border: 'none', borderRadius: '8px', fontWeight: 700, cursor: 'pointer' }}
             >
@@ -161,7 +187,7 @@ export default function Expenses() {
         {!loading && myMatches.length > 0 && (
           <>
             {/* KPI chips */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
+            <div className="ex-kpi-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
               {[
                 { label: 'Total Personally Spent', value: `₹${totalSpent.toLocaleString('en-IN')}`, icon: '💰', color: '#10b981' },
                 { label: 'Matches Participated', value: totalMatches, icon: '⚽', color: '#60a5fa' },
@@ -175,7 +201,7 @@ export default function Expenses() {
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+            <div className="ex-charts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
               {/* Monthly spend bar chart */}
               <div className="ex-card" style={{ animationDelay: '0.1s' }}>
                 <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700, marginBottom: '24px' }}>Monthly Spend (Last 6 Months)</h3>
@@ -243,7 +269,7 @@ export default function Expenses() {
                 <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700 }}>My Match History</h3>
               </div>
               
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr 1fr', padding: '12px 24px', fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr 1fr', padding: '12px 24px', fontSize: '11px', fontWeight: 600, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid rgba(255,255,255,0.05)' }} className="ex-table-header">
                 <div>Date</div><div>Venue / Sport</div><div>My Share</div><div>I Paid</div>
               </div>
 
