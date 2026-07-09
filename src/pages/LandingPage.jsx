@@ -87,12 +87,7 @@ export default function LandingPage() {
     { q: 'Can I manage multiple groups?', a: 'Absolutely. You can create separate squads for Football, Cricket, Badminton, or any other sport. Each squad has its own history and frequent players.' },
     { q: 'Is ContriPlayy free to use?', a: 'Yes! Our core features are completely free. We plan to offer a Pro tier for teams with advanced analytics and priority support in the future.' },
   ];
-
-  const navItems = ['Features', 'How It Works', 'Pricing', 'FAQ'];
-
-  return (
-    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', overflowX: 'hidden' }}>
-      <style>{`
+const styles = `
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -243,7 +238,14 @@ export default function LandingPage() {
           .card { border-radius: 12px; }
           .pricing-grid { gap: 16px; }
         }
-      `}</style>
+`;
+
+
+  const navItems = ['Features', 'How It Works', 'Pricing', 'FAQ'];
+
+  return (
+    <div style={{ background: '#09090b', color: '#e4e4e7', fontFamily: "'Inter', sans-serif", minHeight: '100vh', overflowX: 'hidden' }}>
+      <style>{styles}</style>
 
       {/* NAV */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: isScrolled || mobileMenuOpen ? 'rgba(9,9,11,0.9)' : 'transparent', backdropFilter: isScrolled || mobileMenuOpen ? 'blur(20px)' : 'none', borderBottom: isScrolled || mobileMenuOpen ? '1px solid rgba(255,255,255,0.06)' : 'none', transition: 'all 0.3s ease' }}>

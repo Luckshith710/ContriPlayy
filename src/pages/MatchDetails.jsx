@@ -71,7 +71,7 @@ const styles = `
     .modal-content { max-width: 90vw !important; margin: 16px; padding: 20px !important; }
   }
 `;
-`;
+
 
 const COLORS = ['#10b981','#60a5fa','#c084fc','#f472b6','#fb923c','#34d399','#fbbf24','#818cf8','#f87171','#38bdf8'];
 const BG = ['rgba(16,185,129,0.2)','rgba(96,165,250,0.2)','rgba(192,132,252,0.2)','rgba(244,114,182,0.2)','rgba(251,146,60,0.2)','rgba(52,211,153,0.2)','rgba(251,191,36,0.2)','rgba(129,140,248,0.2)','rgba(248,113,113,0.2)','rgba(56,189,248,0.2)'];
@@ -174,7 +174,6 @@ export default function MatchDetails() {
     return (
       <div style={{ background: '#09090b', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
         <div style={{ width: '40px', height: '40px', border: '3px solid rgba(16,185,129,0.2)', borderTop: '3px solid #10b981', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         <span style={{ color: '#71717a', fontSize: '14px', fontFamily: 'Inter, sans-serif' }}>Loading match...</span>
       </div>
     );
@@ -261,7 +260,7 @@ export default function MatchDetails() {
             {match.sportEmoji || '⚽'} {match.venue} — {match.sport} Booking
           </h1>
           <p style={{ color: '#71717a', fontSize: '15px' }}>
-            {formatDate(match.date)}{match.time ? ` • ${match.time}` : ''} • {players.length} Players
+            {formatDate(match.date)}{match.time ? ' - ' + match.time : ''}{' \u2022 '}{players.length} Players
           </p>
         </div>
 
@@ -271,11 +270,11 @@ export default function MatchDetails() {
             {/* Summary Cards */}
             <div className="md-summary-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', marginBottom: '24px' }}>
               {[
-                { label: 'Total Cost', value: `₹${total.toLocaleString('en-IN')}`, icon: '💰', sub: players.length > 0 ? `₹${(total / players.length).toFixed(0)} per head` : '—', color: '#f4f4f5' },
-                { label: 'Collected', value: `₹${Math.round(collected).toLocaleString('en-IN')}`, icon: '✅', sub: `${fullPaidPlayers.length} full, ${partialPlayers.length} partial`, color: '#10b981' },
-                { label: 'Remaining', value: `₹${Math.round(total - collected).toLocaleString('en-IN')}`, icon: '⏳', sub: `${unpaidPlayers.length} completely unpaid`, color: '#fbbf24' },
+                { label: 'Total Cost', value: '₹' + total.toLocaleString('en-IN'), icon: '💰', sub: players.length > 0 ? '₹' + (total / players.length).toFixed(0) + ' per head' : '—', color: '#f4f4f5' },
+                { label: 'Collected', value: '₹' + Math.round(collected).toLocaleString('en-IN'), icon: '✅', sub: fullPaidPlayers.length + ' full, ' + partialPlayers.length + ' partial', color: '#10b981' },
+                { label: 'Remaining', value: '₹' + Math.round(total - collected).toLocaleString('en-IN'), icon: '⏳', sub: unpaidPlayers.length + ' completely unpaid', color: '#fbbf24' },
               ].map((s, i) => (
-                <div key={i} className="md-card" style={{ animationDelay: `${i * 0.1}s` }}>
+                <div key={i} className="md-card" style={{ animationDelay: (i * 0.1) + 's' }}>
                   <div style={{ fontSize: '24px', marginBottom: '10px' }}>{s.icon}</div>
                   <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '26px', fontWeight: 800, letterSpacing: '-0.02em', color: s.color }}>{s.value}</div>
                   <div style={{ fontSize: '13px', color: '#71717a', marginTop: '4px' }}>{s.label}</div>
@@ -291,7 +290,7 @@ export default function MatchDetails() {
                 <span style={{ fontSize: '14px', fontWeight: 700, color: '#10b981' }}>{total > 0 ? Math.round((collected / total) * 100) : 0}%</span>
               </div>
               <div className="progress-track">
-                <div className="progress-fill" style={{ width: `${total > 0 ? (collected / total) * 100 : 0}%` }} />
+                <div className="progress-fill" style={{ width: (total > 0 ? (collected / total) * 100 : 0) + '%' }} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '12px', color: '#52525b' }}>
                 <span>₹{Math.round(collected).toLocaleString('en-IN')} collected</span>
@@ -304,7 +303,7 @@ export default function MatchDetails() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '16px', fontWeight: 700 }}>Players</h3>
                 <div className="md-player-tabs" style={{ display: 'flex', background: 'rgba(255,255,255,0.04)', borderRadius: '8px', padding: '3px', gap: '2px' }}>
-                  {[['all', 'All'], ['paid', `Paid (${fullPaidPlayers.length})`], ['partial', `Partial (${partialPlayers.length})`], ['pending', `Pending (${unpaidPlayers.length})`]].map(([val, label]) => (
+                  {[['all', 'All'], ['paid', 'Paid (' + fullPaidPlayers.length + ')'], ['partial', 'Partial (' + partialPlayers.length + ')'], ['pending', 'Pending (' + unpaidPlayers.length + ')']].map(([val, label]) => (
                     <button key={val} onClick={() => setTab(val)} style={{ padding: '5px 12px', borderRadius: '6px', border: 'none', background: tab === val ? '#10b981' : 'transparent', color: tab === val ? '#022c22' : '#71717a', fontWeight: 600, fontSize: '12px', cursor: 'pointer', transition: 'all 0.2s', fontFamily: 'Inter, sans-serif' }}>
                       {label}
                     </button>
@@ -336,7 +335,7 @@ export default function MatchDetails() {
                         </div>
                       </div>
                       <button
-                        className={`toggle-btn ${p.status}`}
+                        className={'toggle-btn ' + p.status}
                         onClick={() => openPaymentModal(i, p.amountPaid, p.amount)}
                         disabled={match.status === 'done'}
                         title={match.status === 'done' ? 'Match is closed' : 'Update payment amount'}
@@ -393,7 +392,7 @@ export default function MatchDetails() {
             <div className="md-card" style={{ animationDelay: '0.3s' }}>
               <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: '15px', fontWeight: 700, marginBottom: '16px' }}>Match Info</h3>
               {[
-                { label: 'Sport', value: `${match.sportEmoji || '⚽'} ${match.sport}` },
+                { label: 'Sport', value: (match.sportEmoji || '⚽') + ' ' + match.sport },
                 { label: 'Venue', value: match.venue },
                 { label: 'Date', value: formatDate(match.date) },
                 { label: 'Time', value: match.time || '—' },
